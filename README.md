@@ -102,7 +102,3 @@ This project uses [Prettier](https://prettier.io/) for consistent code formattin
     git push
     ```
 
-Now, refresh your GitHub repository page again. Your detailed README should be displayed beautifully on the repository's main page! You're getting very close to the finish line (~6 hours left).
-
-
-## Explanation of each file used in this assignment
