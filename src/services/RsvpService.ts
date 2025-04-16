@@ -1,12 +1,8 @@
 import { RsvpStatus, RsvpCounts, RsvpEntry } from '../interfaces';
 import { ILogger } from '../utils';
 
-/**
- * Manages RSVP responses for players.
- * Follows SRP: Its single responsibility is managing RSVP state.
- */
+
 export class RsvpService {
-  // Use a Map for efficient O(1) average time complexity for add/update/get by player ID.
   // Stores Player ID -> RSVP Status.
   private rsvps: Map<string, RsvpStatus>;
   private readonly logger: ILogger; // Dependency Injection
@@ -17,23 +13,21 @@ export class RsvpService {
    * @param initialEntries - Optional array of initial RSVP entries to populate the service.
    */
   constructor(logger: ILogger, initialEntries: RsvpEntry[] = []) {
-    // Dependency Injection: Store the provided logger instance.
+    // Dependency Injection: Storing the provided logger instance.
     this.logger = logger;
     this.rsvps = new Map<string, RsvpStatus>();
 
-    // Populate initial state if provided
     if (initialEntries && initialEntries.length > 0) {
       this.logger.log(
         `Initializing RsvpService with ${initialEntries.length} entries.`
       );
       initialEntries.forEach((entry) => {
-        // Basic validation example (could be more robust)
         if (!entry.playerId || !entry.status) {
           this.logger.warn('Skipping invalid initial entry:', entry);
           return; // Early return for this invalid entry
         }
-        // Directly use the addOrUpdate method to leverage its logic/logging
-        this.addOrUpdateRsvp(entry.playerId, entry.status, true); // Pass flag to reduce noise during init
+        // Directly using the addOrUpdate method to leverage its logic/logging
+        this.addOrUpdateRsvp(entry.playerId, entry.status, true);
       });
     } else {
       this.logger.log('Initializing RsvpService with empty state.');
@@ -45,14 +39,14 @@ export class RsvpService {
    * This method is focused and adheres to SRP.
    * @param playerId - The unique identifier for the player.
    * @param status - The player's RSVP status ("Yes", "No", or "Maybe").
-   * @param isInitialization - Internal flag to reduce logging noise during constructor population.
+   * @param isInitialization
    */
   addOrUpdateRsvp(
     playerId: string,
     status: RsvpStatus,
     isInitialization: boolean = false
   ): void {
-    // Input validation (using TypeScript types helps, but runtime check is safer)
+    // Input validation
     if (!playerId) {
       this.logger.error('addOrUpdateRsvp called with invalid playerId.');
       return; // Early return
@@ -86,7 +80,7 @@ export class RsvpService {
    */
   getConfirmedAttendees(): string[] {
     const confirmedIds: string[] = [];
-    // Iterate over the map entries. Using `for...of` is clear.
+    // Iterating over the map entries. Using `for...of` is clear.
     for (const [playerId, status] of this.rsvps.entries()) {
       if (status === 'Yes') {
         confirmedIds.push(playerId);
@@ -101,12 +95,12 @@ export class RsvpService {
   }
 
   /**
-   * Calculates and returns the counts of different RSVP statuses.
+   * Calculating and returning the counts of different RSVP statuses.
    * This method derives state and adheres to SRP (counting is its job).
    * @returns An RsvpCounts object.
    */
   getCounts(): RsvpCounts {
-    // Initialize counts - ensures all keys exist in the result object.
+    // Initializing counts - ensures all keys exist in the result object.
     const counts: RsvpCounts = {
       total: 0,
       confirmed: 0,
@@ -114,9 +108,9 @@ export class RsvpService {
       maybe: 0,
     };
 
-    // Iterate through the statuses stored in the map's values.
+    // Iterating through the statuses stored in the map's values.
     for (const status of this.rsvps.values()) {
-      counts.total++; // Increment total for every entry
+      counts.total++; // Incrementing total for every entry
       switch (status) {
         case 'Yes':
           counts.confirmed++;
@@ -137,7 +131,6 @@ export class RsvpService {
 
   /**
    * Retrieves the RSVP status for a specific player.
-   * Useful helper method, might not be strictly required by the prompt but good practice.
    * @param playerId - The ID of the player to look up.
    * @returns The RsvpStatus or undefined if the player hasn't RSVP'd.
    */

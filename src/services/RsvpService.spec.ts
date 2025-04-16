@@ -1,30 +1,29 @@
-// src/services/RsvpService.spec.ts
 
 import { RsvpService } from './RsvpService';
-import { ILogger } from '../utils/logger.interface'; // Adjust path if needed
-import { RsvpStatus, RsvpCounts, RsvpEntry } from '../interfaces'; // Adjust path if needed
+import { ILogger } from '../utils/logger.interface'; 
+import { RsvpStatus, RsvpCounts, RsvpEntry } from '../interfaces'; 
 
 // Helper function to create a fresh mock logger for each test run
-// Using jest.Mocked provides better type safety for mock functions
+// Using jest.Mocked to provide better type safety for mock functions
 const createMockLogger = (): jest.Mocked<ILogger> => ({
   log: jest.fn(),
   warn: jest.fn(),
   error: jest.fn(),
-  debug: jest.fn(), // Include even if optional, mocking is easy
+  debug: jest.fn(), // Including even if it's optional as mocking is easy I believe
 });
 
 // Main test suite for the RsvpService
 describe('RsvpService', () => {
-  // Declare variables scoped to the describe block
+  // Declaring variables scoped to the describe block
   let rsvpService: RsvpService;
   let mockLogger: jest.Mocked<ILogger>;
 
   // This function runs before each individual 'it' test block
   beforeEach(() => {
-    // Create new mocks and a new service instance for each test
+    // Creating new mocks and a new service instance for each test
     // This ensures tests are isolated and don't interfere with each other
     mockLogger = createMockLogger();
-    rsvpService = new RsvpService(mockLogger); // Initialize without initial data by default
+    rsvpService = new RsvpService(mockLogger); // Initializing without initial data by default
   });
 
   // --- Test Constructor and Initial State ---
@@ -48,7 +47,7 @@ describe('RsvpService', () => {
         { playerId: 'p20', status: 'No' },
         { playerId: 'p30', status: 'Yes' },
       ];
-      // Create a specific instance for this test
+      // Creating a specific instance for this test
       const serviceWithData = new RsvpService(mockLogger, initialEntries);
 
       expect(serviceWithData.getCounts()).toEqual({
@@ -85,7 +84,7 @@ describe('RsvpService', () => {
       });
       expect(serviceWithInvalidData.getPlayerStatus('pValid')).toBe('Yes');
 
-      // Check that appropriate warnings/errors were logged for the invalid entries
+      // Checking that appropriate warnings/errors were logged for the invalid entries
       expect(mockLogger.warn).toHaveBeenCalledWith(
         'Skipping invalid initial entry:',
         { playerId: '', status: 'Maybe' }
@@ -195,10 +194,9 @@ describe('RsvpService', () => {
       );
       expect(mockLogger.log).not.toHaveBeenCalledWith(
         expect.stringContaining('Added new RSVP')
-      ); // Ensure add log didn't happen
+      ); // Ensuring add log didn't happen
     });
 
-    // Add more tests if you implement more validation (e.g., for empty player IDs)
   });
 
   // --- Test getConfirmedAttendees ---
@@ -227,7 +225,7 @@ describe('RsvpService', () => {
       rsvpService.addOrUpdateRsvp('p5', 'Yes');
 
       const attendees = rsvpService.getConfirmedAttendees();
-      // Use expect.arrayContaining because the order from a Map isn't guaranteed
+      // using expect.arrayContaining because the order from a Map isn't guaranteed
       expect(attendees).toHaveLength(3);
       expect(attendees).toEqual(expect.arrayContaining(['p1', 'p3', 'p5']));
       expect(mockLogger.log).toHaveBeenCalledWith(

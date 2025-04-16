@@ -4,11 +4,11 @@ import { RsvpEntry, Player } from './interfaces'; // Player is not used here but
 
 // --- Setup ---
 
-// 1. Create logger instance (Dependency)
+// 1. Creating logger instance (Dependency)
 const logger: ILogger = new ConsoleLogger();
 logger.log('Application starting...');
 
-// 2. Define some initial data (optional)
+// 2. Defining some initial data (optional)
 const initialRsvps: RsvpEntry[] = [
   { playerId: 'player1', status: 'Maybe' },
   { playerId: 'player2', status: 'No' },
@@ -16,23 +16,22 @@ const initialRsvps: RsvpEntry[] = [
   { playerId: 'player4', status: 'Yes' },
 ];
 
-// 3. Instantiate the service, injecting the logger and initial data
+// 3. Instantiating the service, injecting the logger and initial data
 const rsvpService = new RsvpService(logger, initialRsvps);
 
 // --- Usage ---
 
 logger.log('\n--- Using the RSVP Service ---');
 
-// Add a new player
+// Adding a new player
 rsvpService.addOrUpdateRsvp('player5', 'Yes');
 
-// Update an existing player
+// Updating an existing player
 rsvpService.addOrUpdateRsvp('player2', 'No');
 
-// Try adding an invalid status (should log an error)
-// Note: TypeScript might catch this if 'Invalid' is not assignable to RsvpStatus
+// Trying to add an invalid status (should log an error)
 try {
-  rsvpService.addOrUpdateRsvp('player6', 'Invalid' as any); // Use 'as any' to bypass TS check for demo
+  rsvpService.addOrUpdateRsvp('player6', 'Invalid' as any); // using 'as any', helps to bypass TS check for demo
 } catch (e) {
   logger.error(
     'Caught error trying to add invalid status (though service handles internally):',
@@ -40,20 +39,19 @@ try {
   );
 }
 
-// Get confirmed attendees
+// Getting confirmed attendees
 const confirmed = rsvpService.getConfirmedAttendees();
-logger.log('\nConfirmed Attendees:', confirmed); // Expected: ['player1', 'player4', 'player5']
+logger.log('\nConfirmed Attendees:', confirmed); 
 
-// Get counts
+// Getting counts
 const counts = rsvpService.getCounts();
 logger.log('\nRSVP Counts:', counts);
-// Expected: { total: 5, confirmed: 3, declined: 0, maybe: 2 }
 
-// Get status for a specific player
+// Getting status for a specific player
 const player3Status = rsvpService.getPlayerStatus('player3');
-logger.log(`\nStatus for player3: ${player3Status}`); // Expected: Maybe
+logger.log(`\nStatus for player3: ${player3Status}`); 
 
 const playerUnknownStatus = rsvpService.getPlayerStatus('player_unknown');
-logger.log(`\nStatus for player_unknown: ${playerUnknownStatus}`); // Expected: undefined
+logger.log(`\nStatus for player_unknown: ${playerUnknownStatus}`); 
 
 logger.log('\n--- Application Finished ---');

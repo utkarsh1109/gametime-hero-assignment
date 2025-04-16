@@ -18,8 +18,7 @@ export class ConsoleLogger implements ILogger {
 
   // Example of implementing the optional debug method
   debug(message: string, ...optionalParams: any[]): void {
-    // You might enable/disable this based on an environment variable
-    if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV === 'development') {
       console.debug(`[DEBUG] ${message}`, ...optionalParams);
     }
   }
