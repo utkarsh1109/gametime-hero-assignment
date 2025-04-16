@@ -102,4 +102,4 @@ This project uses [Prettier](https://prettier.io/) for consistent code formattin
 
 - **Installing CSV Helper Libraries:** Use the command : `npm install --save-dev csv-parser csv-writer` to install the helper libraries for csv files in `npm`. 
 
-- **How it works?:** It takes data of players, events and rsvp from their respective csv files and generates an html file named `attendance_report.html with desired columns.
+- **How it works?:** It takes data of players, events and rsvp from their respective csv files and generates an html file named `attendance_report.html` with desired columns.
