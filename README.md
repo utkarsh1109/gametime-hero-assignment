@@ -1,6 +1,6 @@
 # Gametime Hero Coding Challenge: RSVP Service Module
 
-This project implements a simple, in-memory RSVP management service using TypeScript as part of the Gametime Hero coding challenge submission.
+I have created this project which implements a simple, in-memory RSVP management service using TypeScript as part of the Gametime Hero coding challenge submission.
 
 ## Project Goal
 
@@ -8,7 +8,7 @@ To create a focused TypeScript module (`RsvpService`) capable of managing player
 
 ## Prerequisites
 
-Before running this project locally, ensure you have the following installed:
+Before running this project locally, I ensured the following softwares are installed:
 
 - **Node.js:** (e.g., v18 or later recommended) - Includes npm. Download from [nodejs.org](https://nodejs.org/)
 - **Git:** For cloning the repository (if applicable) and version control. Download from [git-scm.com](https://git-scm.com/)
@@ -43,7 +43,7 @@ _(Alternatively, if you added a "start" script to `package.json`: `npm start`)_
 
 ## Running Unit Tests
 
-Unit tests have been written using Jest to verify the functionality and edge cases of the `RsvpService`. To run the tests:
+I have also written unit tests to verify the functionality and edge cases of the `RsvpService`. To run the tests:
 
 ```bash
 npm test
@@ -51,7 +51,7 @@ npm test
 
 ## Code Formatting
 
-This project uses [Prettier](https://prettier.io/) for consistent code formatting.
+I used [Prettier](https://prettier.io/) for consistent code formatting.
 
 - To check formatting: `npx prettier --check .`
 - To apply formatting: `npx prettier --write .`
@@ -100,6 +100,6 @@ This project uses [Prettier](https://prettier.io/) for consistent code formattin
 
 - **File Used:** `generate_attendance_report.ts`
 
-- **Installing CSV Helper Libraries:** Use the command : `npm install --save-dev csv-parser csv-writer` to install the helper libraries for csv files in `npm`. 
+- **Installing CSV Helper Libraries:** I used the command : `npm install --save-dev csv-parser csv-writer` to install the helper libraries for csv files in `npm`. 
 
 - **How it works?:** It takes data of players, events and rsvp from their respective csv files and generates an html file named `attendance_report.html` with desired columns.
